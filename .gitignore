@@ -1,0 +1,8 @@
+playground/*
+secrets/*
+project_directory_overview.png
+.api_keys
+.env_vars
+variables.tfvars
+terraform/.terraform
+*.tfstate

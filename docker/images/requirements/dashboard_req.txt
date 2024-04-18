@@ -1,0 +1,10 @@
+streamlit
+pandas
+altair
+datetime
+typing
+plotly
+#nb-format
+charset-normalizer
+google-cloud-bigquery
+pyspark

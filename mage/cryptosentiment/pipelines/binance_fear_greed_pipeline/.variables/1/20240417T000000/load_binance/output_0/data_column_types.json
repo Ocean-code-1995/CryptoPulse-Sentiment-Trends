@@ -1,0 +1,1 @@
+{"Open Time": "int64", "Open": "str", "High": "str", "Low": "str", "Close": "str", "Volume": "str", "Close Time": "int64", "Quote Asset Volume": "str", "Number of Trades": "int64", "Taker Buy Base Asset Volume": "str", "Taker Buy Quote Asset Volume": "str", "Ignore": "str"}

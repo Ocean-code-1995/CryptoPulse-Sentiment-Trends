@@ -1,0 +1,12 @@
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+altair
+pyarrow
+mplfinance
+pyspark
+google-cloud-bigquery
+python-dotenv

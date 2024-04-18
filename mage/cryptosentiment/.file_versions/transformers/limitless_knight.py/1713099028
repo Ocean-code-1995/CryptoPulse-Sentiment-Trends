@@ -1,0 +1,62 @@
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, to_date, year, month, to_timestamp
+import pandas as pd
+#
+
+if 'transformer' not in globals():
+    from mage_ai.data_preparation.decorators import transformer
+if 'test' not in globals():
+    from mage_ai.data_preparation.decorators import test
+
+
+@transformer
+def transform(data: pd.DataFrame, *args, **kwargs):
+    """
+    Template code for a transformer block.
+
+    Add more parameters to this function if this block has multiple parent blocks.
+    There should be one parameter for each output variable from each parent block.
+
+    Args:
+        data: The output from the upstream parent block
+        args: The output from any additional upstream blocks (if applicable)
+
+    Returns:
+        Anything (e.g. data frame, dictionary, array, int, str, etc.)
+    """
+    # Specify your transformation logic here
+    # Initialize SparkSession
+    spark = SparkSession.builder \
+        .appName("AlternativeMeBatchProcessing") \
+        .getOrCreate()
+
+    kwargs['spark'] = spark
+
+    # Convert Pandas DataFrame to Spark DataFrame
+    df = spark.createDataFrame(data)
+
+    df = (
+        df.withColumnRenamed("timestamp", "Date")
+          #.withColumn("Date", to_date(col("Date"), "dd-MM-yyyy"))
+          .withColumn("Date", to_timestamp(col("Date"), "dd-MM-yyyy"))  # Casting to timestamp
+          .withColumn("value", col("value").cast("integer"))
+          .withColumn("value_classification", col("value_classification").cast("string"))
+          .drop("time_until_update")
+          .sort("Date")
+    )
+
+    # Add 'Year' and 'Month' columns for partitioning
+    df = (
+        df.withColumn("Year", year("Date"))
+          .withColumn("Month", month("Date"))
+    )
+
+    return df
+
+
+@test
+def test_output(output, *args) -> None:
+    """
+    Template code for testing the output of the block.
+    """
+    assert output is not None, 'The output is undefined'

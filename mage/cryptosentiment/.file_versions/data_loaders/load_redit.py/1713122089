@@ -1,0 +1,127 @@
+import requests
+from datetime import datetime, timedelta
+import time
+from typing import List
+import pandas as pd
+import numpy as np
+import praw
+from typing import List
+
+if 'data_loader' not in globals():
+    from mage_ai.data_preparation.decorators import data_loader
+if 'test' not in globals():
+    from mage_ai.data_preparation.decorators import test
+
+
+def fetch_subreddit_data(
+    authentication: dict,
+    subreddit_name: str,
+    sort: str,
+    months_back: int,
+    requests_per_minute: int,
+    limit_per_request: int,
+    keywords_list: List[str]
+    ) -> pd.DataFrame:
+    """
+    Fetches data from a subreddit based on the given parameters.
+    """
+    try:
+        authentication = praw.Reddit(
+            client_id     = authentication['REDDIT_CLIENT_ID'],
+            client_secret = authentication['REDDIT_CLIENT_SECRET'],
+            user_agent    = authentication['REDDIT_USER_AGENT'],
+            username      = authentication['REDDIT_USERNAME'],
+            password      = authentication['REDDIT_PASSWORD']
+        )
+        authentication.user.me()
+    except praw.exceptions.PRAWException as e:  # Adjust the exception type as needed
+        raise ValueError("Failed to authenticate with Reddit API.") from e
+    else:
+        print("API connection established successfully.")
+
+    # Fetch subreddit data
+    subreddit = authentication.subreddit(subreddit_name)
+    end_date = datetime.utcnow() - timedelta(days=30 * months_back)
+    submission_generator = getattr(subreddit, sort)(limit=limit_per_request)
+    posts_dict = {
+        "ID": [], "Author": [], "Title": [],  "Body": [], "Score": [], "Total Comments": [], "Votes": [], "URL": [], "Date": []
+    }
+    request_count = 0
+
+    for submission in submission_generator:
+        submission_date = datetime.utcfromtimestamp(submission.created_utc)
+        if submission_date < end_date:
+            break  # Stop if the post is older than n months
+
+        # Check if the post contains any of the keywords (do not include the post if it does not contain any of the keywords)
+        if not any(
+            keyword.lower() in submission.title.lower()
+            for keyword in keywords_list
+        ):
+            continue
+
+        # Append post data to the dictionary
+        posts_dict["ID"].append(submission.id)
+        posts_dict["Author"].append(submission.author.name if submission.author else 'Deleted')
+        posts_dict["Title"].append(submission.title)
+        posts_dict["Body"].append(submission.selftext if submission.selftext else "")
+        posts_dict["Score"].append(submission.score)
+        posts_dict["Total Comments"].append(submission.num_comments)
+        posts_dict["Votes"].append(submission.upvote_ratio)
+        posts_dict["URL"].append(submission.url)
+        posts_dict["Date"].append(submission_date.strftime('%Y-%m-%d'))
+        request_count += 1 # Increment the request count
+        if request_count >= requests_per_minute:
+            time.sleep(60)  # Sleep to adhere to the rate limit
+            request_count = 0  # Reset the request count
+
+    return pd.DataFrame(posts_dict)
+
+@data_loader
+def load_data_from_api(*args, **kwargs):
+    """
+    Template for loading data from API
+    """
+
+REDDIT_CLIENT_ID="WQ59R2W4QBui11HjH1vPYg"
+REDDIT_CLIENT_SECRET="dknqCbstj1wVphmCBDPUX1AXbRmmSw"
+REDDIT_USER_AGENT="my-data-app by u/ApfelSahneStrudel"
+REDDIT_USERNAME="ApfelSahneStrudel"
+REDDIT_PASSWORD="vawjy7-rowcox-xurCyq"
+
+
+
+authentication  = {
+        'REDDIT_CLIENT_ID':     get_secret_value('REDDIT_CLIENT_ID'),
+        'REDDIT_CLIENT_SECRET': os.getenv('REDDIT_CLIENT_SECRET'),
+        'REDDIT_USER_AGENT':    os.getenv('REDDIT_USER_AGENT'),
+        'REDDIT_USERNAME':      os.getenv('REDDIT_USERNAME'),
+        'REDDIT_PASSWORD':      os.getenv('REDDIT_PASSWORD')
+    }#
+    # 2) Define the parameters
+    #------------------------------------------------------
+    subreddit_name      = 'CryptoCurrency'
+    sort                = 'new'
+    months_back         = 6
+    requests_per_minute = 1000  # Be mindful of Reddit's rate limit.
+    limit_per_request   = 100
+    keywords_list       = ['bitcoin', 'btc']
+    output_path         = os.path.join(home_dir, 'Desktop', 'DataEng_Crypto_Sentiment', 'playground', 'data', 'raw', 'reddit')
+
+    data = fetch_subreddit_data(
+        authentication      = authentication,
+        subreddit_name      = subreddit_name,
+        sort                = sort,
+        months_back         = months_back,
+        requests_per_minute = requests_per_minute,
+        limit_per_request   = limit_per_request,
+        keywords_list       = keywords_list
+    )
+
+
+@test
+def test_output(output, *args) -> None:
+    """
+    Template code for testing the output of the block.
+    """
+    assert output is not None, 'The output is undefined'

@@ -1,0 +1,1 @@
+{"ID": "str", "Author": "str", "Title": "str", "Body": "str", "Score": "int32", "Total Comments": "int32", "Votes": "float32", "URL": "str", "Date": "datetime64[ns]", "Currency": "str", "Title_Body": "str", "Year": "int32", "Month": "int32"}

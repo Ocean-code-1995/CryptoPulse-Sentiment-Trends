@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+# api - bigquery pipeline
+  mage:
+    image: mage
+    container_name: mage-instance
+    ports:
+      - 6789:6789
+    environment:
+      - project_id=${project_id}
+
+    restart: on-failure:5
+
+  # streamlit dashboard
+  dashboard:
+    image: streamlit-dashboard  # Use the image name you assigned during Docker build
+    container_name: streamlit-dashboard
+    ports:
+      - 8500:8500  # Expose the port used by Streamlit
+    restart: on-failure:5  # Handle restarts

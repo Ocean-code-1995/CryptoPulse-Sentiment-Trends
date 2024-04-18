@@ -1,0 +1,97 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: data_loaders/load_reddit.py
+  downstream_blocks:
+  - transform_reddit
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_reddit
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_reddit
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_reddit.py
+  downstream_blocks:
+  - export_reddit
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_reddit
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_reddit
+  uuid: transform_reddit
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: data_exporters/export_reddit.py
+  downstream_blocks:
+  - unifying_smoke
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_reddit
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_reddit
+  uuid: export_reddit
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: unifying smoke
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - export_reddit
+  uuid: unifying_smoke
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-04-14 19:50:55.013447+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: reddit_pipeline
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: reddit_pipeline
+variables_dir: /home/src/cryptosentiment
+widgets: []

@@ -1,0 +1,44 @@
+# webscraping
+selenium
+beautifulsoup4
+ratelimit
+praw
+requests
+
+# binance
+python-binance
+mplfinance
+
+# data manipulation
+pandas
+numpy
+
+# visualization
+matplotlib
+seaborn
+plotly
+
+# ML
+scikit-learn
+
+# trend forecasting
+fbprophet
+
+# LLM
+transformers
+torch
+Bertopic
+umap-learn
+
+# NLP
+ftfy
+cleantext
+nltk
+
+#
+python-dotenv
+
+
+# batch processing
+pyspark
+pyarrow

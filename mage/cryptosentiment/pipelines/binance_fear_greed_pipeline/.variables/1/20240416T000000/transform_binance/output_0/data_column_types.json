@@ -1,0 +1,1 @@
+{"Open Time": "datetime64[ns]", "Open": "float32", "High": "float32", "Low": "float32", "Close": "float32", "Volume": "float32", "Close Time": "datetime64[ns]", "Quote Asset Volume": "float32", "Number of Trades": "int32", "Taker Buy Base Asset Volume": "float32", "Taker Buy Quote Asset Volume": "float32", "Year": "int32", "Month": "int32"}

@@ -1,0 +1,26 @@
+
+services:
+  mage:
+    image: mage
+    container_name: mage-instance
+    command: mage start cryptosentiment
+    ports:
+      - 6789:6789
+    volumes:
+      - ../mage/:/home/src/
+      - ../secrets/cryptopulse-secret.json:/home/src/secrets/secret.json
+    restart: on-failure:5
+
+#
+  dashboard:
+    image: streamlit-dashboard  # Use the image name you assigned during Docker build
+    container_name: streamlit-dashboard
+    command: streamlit run /app/dashboard/dashboard_app.py --server.port 8501 --server.address 0.0.0.0 --server.headless True
+    ports:
+      - 8501:8501  # Expose the port used by Streamlit
+    volumes:
+      - ../dashboard/:/app/dashboard/  # Ensure the path to your Streamlit app is correct
+      - ../secrets/cryptopulse-secret.json:/app/secrets/secret.json
+    restart: on-failure:5  # Handle restarts
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/secrets/secret.json
