@@ -12,7 +12,7 @@ import os
 from google.cloud import bigquery
 from google.oauth2 import service_account
 
-
+###
 # Initialize BigQuery client function
 def get_bigquery_client():
     credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")

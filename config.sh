@@ -5,10 +5,10 @@
 
 # Define environment variables
 PROJECT_NAME="CryptoPulse"
-PROJECT_ID="---- your-project-id ----"
-SERVICE_ACCOUNT_NAME="cryptopulse"
-BILLING_ACCOUNT_ID="--- your-billing-account-id"
-KEY_PATH="./secrets/cryptooulse-secret.json"  # Path where the service account key will be saved
+PROJECT_ID="project-cryptopulse-1"
+SERVICE_ACCOUNT_NAME="terraform-executor"
+BILLING_ACCOUNT_ID="0178D0-832F47-2F8729"
+KEY_PATH="../secrets/cryptopulse-secret.json"  # Path where the service account key will be saved
 
 # Authenticate with gcloud (commented out if you want to run it manually)
 # gcloud auth login

@@ -31,7 +31,7 @@ def CryptoBertSentiment(data: pd.DataFrame, col_name: str, batch_size: int = 32)
 
             sentiments.extend(batch_sentiments)
             scores.extend(batch_scores)
-
+#
         # Map labels and calculate scores
         data['Sentiment'] = pd.Series(sentiments).map(
             {

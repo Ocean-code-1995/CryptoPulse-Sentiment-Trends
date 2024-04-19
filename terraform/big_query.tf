@@ -8,7 +8,7 @@ resource "google_bigquery_dataset" "cryptopulse_dataset" {
   dataset_id                  = "cryptopulse_dataset"
   friendly_name               = "CryptoPulse Dataset"
   description                 = "This dataset stores the tables for the dashboard."
-  location                    = var.region
+  location                    = var.zone
   project                     = local.project_id
   default_table_expiration_ms = 3600000 # 1 hour in milliseconds
 

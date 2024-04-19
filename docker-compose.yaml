@@ -6,8 +6,8 @@ services:
     container_name: mage-instance
     ports:
       - 6789:6789
-    environment:
-      - project_id=${project_id}
+    env_file:
+      - .env  # Load environment variables from the .env file
 
     restart: on-failure:5
 
@@ -17,4 +17,6 @@ services:
     container_name: streamlit-dashboard
     ports:
       - 8500:8500  # Expose the port used by Streamlit
+    env_file:
+      - .env  # Load environment variables from the .env file
     restart: on-failure:5  # Handle restarts

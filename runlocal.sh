@@ -1,12 +1,11 @@
-
-# Assuming the JSON credentials are stored in 'credentials.json'
+# Path to the credentials file
 CREDENTIALS_FILE="./secrets/cryptopulse-secret.json"
 
-# Use jq to parse JSON and extract project_id
-PROJECT_ID=$(jq -r '.project_id' $CREDENTIALS_FILE)
+# Extract the project_id from the JSON credentials file
+PROJECT_ID=$(jq -r '.project_id' "$CREDENTIALS_FILE")
 
-# Export the PROJECT_ID so it's available to docker-compose as an environment variable
-export PROJECT_ID
+# Create an .env file and write PROJECT_ID to it
+echo "PROJECT_ID=$PROJECT_ID" > .env
 
-# Now run docker-compose
+# Run docker-compose
 docker-compose up

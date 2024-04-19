@@ -1,8 +1,8 @@
 # Description: Dockerfile for the Mage AI container
 FROM mageai/mageai:latest
 
-# Set the working directory
-COPY ./mage /home/src/mage
+COPY mage /home/src/mage
+COPY secrets /home/src/secrets
 
 # Add Debian Bullseye repository
 RUN echo 'deb http://deb.debian.org/debian bullseye main' > /etc/apt/sources.list.d/bullseye.list
@@ -26,4 +26,4 @@ RUN pip install praw
 ENV MAGE_DATA_DIR=/home/src/
 
 # entry point for the mage container to start the cryptosentiment module
-ENTRYPOINT [ "mage", "start", "/home/src/mage/cryptosentiment"]
+ENTRYPOINT [ "mage", "start", "/home/src/mage/cryptosentiment" ]

@@ -50,9 +50,9 @@ def main():
     data       = load_data(project_id = project_id)
 
     # Check if data is loaded, sort it, and assign to variables
-    binance    = data['binance'].sort_values("Close_Time") if 'binance' in data else None
-    fearngreed = data['fearngreed'].sort_values("Date") if 'fearngreed' in data else None
-    reddit     = data['reddit'].sort_values("Date") if 'reddit' in data else None
+    binance    = data['binance'].sort_values("Close_Time") if 'binance' in data else pd.DataFrame()
+    fearngreed = data['fearngreed'].sort_values("Date") if 'fearngreed' in data else pd.DataFrame()
+    reddit     = data['reddit'].sort_values("Date") if 'reddit' in data else pd.DataFrame()
     forecast   = pd.DataFrame(columns=['ds', 'y', 'yhat', 'yhat_upper', 'yhat_lower'])
     # sort all dataframes by date
     #binance    = binance.sort_values("Close_Time")
