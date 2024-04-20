@@ -17,7 +17,7 @@ def main() -> None:
     # Get the path to the home directory
     home_dir = os.path.expanduser('~')
     # Construct the path to the .env_vars file
-    dotenv_path = os.path.join(home_dir, "DataEng_Crypto_Sentiment", 'FINAL', '.env_vars')
+    dotenv_path = os.path.join(home_dir, "Desktop", "DataEng_Crypto_Sentiment", '.env_vars')
     # Load the environment variables
     try:
         load_dotenv(dotenv_path=dotenv_path)

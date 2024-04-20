@@ -53,11 +53,13 @@ In a Nutshell the project comprises of the following components:
 ---
 - The content below was the attempt to migrate the locally developed components to the cloud. Due to lack of time the code still needs to be debugged.
 - Alternatively option "b) Playground" can alternatively be used to test the locally developed pipeline and play with the dashboard.
-- 
+
+
+
 ### **`0) clone githib repo`**
+- by running: `git clone https://github.com/Ocean-code-1995/CryptoPulse-Sentiment-Trends`
 
-by running: `git clone https://github.com/Ocean-code-1995/CryptoPulse-Sentiment-Trends`
-
+  
 ### **`1) Infrastructure as Code (Terraform)`**
 Use terraform to initialize cloud storage.
 #### ***BigQuery Dataset & Tables***
@@ -172,7 +174,8 @@ The fellowing two operations can `optionally` be run locally in order to enrich 
 ### **`0) clone githib repo`**
 
 - run: `git clone https://github.com/Ocean-code-1995/CryptoPulse-Sentiment-Trends`
-- cd into playground
+- store on Desktop !!!
+- the local testing set up is stored in playground dir
 
 ### **`1) Set api credentials for data scources`**
 To be able to access the data from reddit and binance, api credentials need to be initialized as listed below:
@@ -214,6 +217,7 @@ To fetch data from reddit the "python reddit api wrapper" is used to ethically g
 
 ### 2) **`Run batch processing pipelines`**
 
+- cd into playground first
 - conda create --name cryptopulse_env python=3.10
 - conda activate cryptopulse
 - pip install -r requirements.txt
