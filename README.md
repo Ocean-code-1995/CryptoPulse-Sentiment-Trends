@@ -165,7 +165,7 @@ The fellowing two operations can `optionally` be run locally in order to enrich 
 
 
 
-## ***`a) Playground `***
+## ***`b) Playground `***
 ---
 - use playground to get the test pipeline and dashboard running as per instruction below:
 
