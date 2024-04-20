@@ -11,8 +11,13 @@
 CryptoPulse leverages data engineering practices to pipe data through anaytics pipeline to analyze cryptocurrency market sentiments and forecast trends on an interactive dashbaord. By integrating social media analysis with financial data, it provides actionable insights into crypto market dynamics. This project embodies a comprehensive end-to-end pipeline—from data ingestion and sentiment analysis to trend forecasting and interactive visualization—facilitating informed investment decisions in the volatile world of cryptocurrencies.
 
 **`Note`**
-Unfortunately the project has not reached its end before the deadline, but will be continued. Therefore, not all components run in the cloud as intended but are at least containerized...
+- Unfortunately the project has not reached its end before the deadline, but will be continued. Therefore, not all components run in the cloud as intended but are at least containerized...
+- The project has initally been developed locally to test and debug all components first before migrating to the cloud.
 ---
+
+## ***Dashboard***
+![Dashboard](dashbaord/dashboard.jpg)
+
 
 ## ***Project Overview***
 ---
