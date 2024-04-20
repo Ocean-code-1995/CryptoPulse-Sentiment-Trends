@@ -16,7 +16,7 @@ CryptoPulse leverages data engineering practices to pipe data through anaytics p
 ---
 
 ## ***Dashboard***
-![Dashboard](dashbaord/dashboard.jpg)
+![Dashboard](dashboard/dashboard.jpg)
 
 
 ## ***Project Overview***
